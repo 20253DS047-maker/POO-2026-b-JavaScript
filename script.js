@@ -90,3 +90,16 @@ const personasMayores = personas.filter(
         return personaX.edad > 17;
     }
 );
+console.log(personasMayores);
+
+//funcion Reduce
+
+const numerosY = [3, 6, 9, 12, 16];
+
+const sumaNum = numerosY.reduce(
+    (variablePersistente, elemento) => 
+         variablePersistente + elemento
+    ,
+    0
+)
+console.log(sumaNum);
