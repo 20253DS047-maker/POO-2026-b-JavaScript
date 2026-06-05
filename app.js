@@ -17,6 +17,11 @@ const estudianteX = {
 //Referecias al DOM
 
 const seccionEstudiantes = document.getElementById("lista-estudiantes");
+const btnTodos = document.getElementById("btn-todos");
+const btnAprobados = document.getElementById("btn-aprobados");
+const btnReprobados = document.getElementById("btn-reprobados");
+const btnPromedio = document.getElementById("btn-promedio");
+
 
 //Funciones
 const crearTarjeta = (unEstudiante) => {
@@ -36,6 +41,7 @@ const crearTarjeta = (unEstudiante) => {
 
 
 
+
 const renderizarLista = (estudiantesApintar) => {
 
     const listaTarjetas = estudiantesApintar.map (
@@ -52,9 +58,33 @@ const renderizarLista = (estudiantesApintar) => {
 
 //Eventos
 
+btnTodos.addEventListener('click',
+    () => {
+        renderizarLista(estudiantes);
+    }
+);
 
+btnAprobados.addEventListener('click',
+    () => {
+        const aprobados = estudiantes.filter(
+            (unEstudianteX) => {
+                 return unEstudianteX.nota > 60;
+            }
+        );
+        renderizarLista(aprobados);
+    }
+);
 
-
+btnReprobados.addEventListener('click',
+    () => {
+        const reprobados = estudiantes.filter(
+            (unEstudianteX) => {
+                 return unEstudianteX.nota < 60;
+            }
+        );
+        renderizarLista(reprobados);
+    }
+);
 //Llamadas a funciones
 
 
