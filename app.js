@@ -79,7 +79,7 @@ btnReprobados.addEventListener('click',
     () => {
         const reprobados = estudiantes.filter(
             (unEstudianteX) => {
-                 return unEstudianteX.nota < 60;
+                 return unEstudianteX.nota < 61;
             }
         );
         renderizarLista(reprobados);
