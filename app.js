@@ -21,6 +21,10 @@ const btnTodos = document.getElementById("btn-todos");
 const btnAprobados = document.getElementById("btn-aprobados");
 const btnReprobados = document.getElementById("btn-reprobados");
 const btnPromedio = document.getElementById("btn-promedio");
+const seccionPromedio = document.getElementById("resultado-promedio");
+const inputNom = document.getElementById("input-nombre");
+const inputNota = document.getElementById("input-nota");
+const btnAgregar = document.getElementById("btn-agregar");
 
 
 //Funciones
@@ -38,6 +42,12 @@ const crearTarjeta = (unEstudiante) => {
     return tarjeta;
     
 }
+
+ const toFixedTrunc = (num, decimales) => {
+        const factor = Math.pow(10, decimales);
+        const truncado = Math.trunc(num * factor) / factor;
+        return truncado.toFixed(decimales);
+    }
 
 
 
@@ -85,7 +95,55 @@ btnReprobados.addEventListener('click',
         renderizarLista(reprobados);
     }
 );
+
+
+btnPromedio.addEventListener('click',
+  () => {
+    const sumaNotas = estudiantes.reduce(
+        (valorPersistente, estudiante) => {
+            return valorPersistente + estudiante.nota;
+        }, 0);
+        const promedio = sumaNotas / estudiantes.length;
+        console.log(toFixedTrunc(promedio, 2));
+        seccionPromedio.innerHTML = "Promedio: " + toFixedTrunc(promedio, 2);
+        seccionPromedio.style.display = "block"
+  }  
+);
+
+
+btnAgregar.addEventListener('click', () => {
+
+    const nombre = inputNom.value.trim();
+    const nota = parseInt(inputNota.value.trim()); 
+
+    if (nombre === "" || isNaN(nota) || nota < 0 || nota > 100){
+        alert("Por favor, ingresa un nombre valido y una nota valida entre 0 y 100");
+        return; 
+    }
+
+    const nuevoEstudiante = {
+    id : estudiantes.length + 1,
+    nombre: nombre,
+    nota: nota
+    
+};
+
+
+estudiantes.push(nuevoEstudiante);
+renderizarLista(estudiantes);
+
+inputNom.value = "";
+inputNota.value ="";
+
+});
+
+
+
+
+
 //Llamadas a funciones
 
 
 renderizarLista(estudiantes);
+
+
